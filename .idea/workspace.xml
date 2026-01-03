@@ -5,33 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="00bb539a-5833-4303-9bec-452060752b42" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/components/layout/auth-layout.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/hooks/use-auth-guard.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/messages/ar.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/messages/en.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/dashboard/index.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/signup.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/schemas/login-schema.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/schemas/signup-schema.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/store/auth-store.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/types/auth.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/types/server-validation-error.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/knowledge-base-dashboard.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/prettier.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/next.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/next.config.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/component-example.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/component-example.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/example.tsx" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hooks/use-auto-rtl.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/language-toggle.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/language-toggle.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/theme-provider.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/theme-provider.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lib/utils.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/utils.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/_app.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/_app.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/_document.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/_document.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ui/field.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/field.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/messages/ar.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/messages/ar.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/messages/en.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/messages/en.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/dashboard/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/dashboard/index.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/store/authentication-store.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/language-toggle.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/signup.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/signup.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/store/auth-store.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/store/auth-store.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/store/theme-store.ts" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -120,7 +105,7 @@
       <workItem from="1767176828889" duration="537000" />
       <workItem from="1767177389113" duration="17998000" />
       <workItem from="1767263230165" duration="1646000" />
-      <workItem from="1767382547898" duration="25095000" />
+      <workItem from="1767382547898" duration="27750000" />
     </task>
     <servers />
   </component>

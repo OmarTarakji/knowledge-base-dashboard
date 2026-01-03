@@ -15,17 +15,15 @@ import AuthLayout from "@/components/layout/auth-layout";
 import { useAuthStore } from "@/store/auth-store";
 import { ServerValidationError } from "@/types/server-validation-error";
 import { getMessages } from "@/lib/utils";
-import { useEffect } from "react";
-import { useRouter } from "next/router";
+import { useTranslations } from "next-intl";
+import useAutoRtl from "@/hooks/use-auto-rtl";
 
 export default function LoginPage() {
-  const { locale } = useRouter();
-  useEffect(() => {
-    const isRTL = locale === "ar";
-    document.documentElement.dir = isRTL ? "rtl" : "ltr";
-    document.documentElement.lang = locale || "en";
-  }, [locale]);
+  useAutoRtl();
 
+  const tCommon = useTranslations("Common");
+  const tLogin = useTranslations("Login");
+  const tAuthErrors = useTranslations("AuthErrors");
   const login = useAuthStore((state) => state.login);
   const {
     control,
@@ -46,17 +44,18 @@ export default function LoginPage() {
       console.log(err);
 
       if (err instanceof ServerValidationError) {
-        Object.entries(err.errors).forEach(([field, message]) => {
+        Object.entries(err.errors).forEach(([field, messageKey]) => {
+          const translatedMessage = tAuthErrors(String(messageKey));
           setError(field as keyof LoginFields, {
             type: "server",
-            message,
+            message: translatedMessage,
           });
         });
         return;
       }
 
       setError("root", {
-        message: "An unexpected error occurred",
+        message: tCommon("unexpectedError"),
       });
     }
   };
@@ -70,12 +69,14 @@ export default function LoginPage() {
             control={control}
             render={({ field, fieldState }) => (
               <Field data-invalid={fieldState.invalid}>
-                <FieldLabel htmlFor={field.name}>Username</FieldLabel>
+                <FieldLabel htmlFor={field.name}>
+                  {tCommon("username")}
+                </FieldLabel>
                 <Input
                   {...field}
                   id={field.name}
                   aria-invalid={fieldState.invalid}
-                  placeholder="Enter your username"
+                  placeholder={tCommon("usernamePlaceholder")}
                   className="bg-background/60 focus-visible:ring-primary h-10"
                 />
                 {fieldState.invalid && (
@@ -89,13 +90,15 @@ export default function LoginPage() {
             control={control}
             render={({ field, fieldState }) => (
               <Field data-invalid={fieldState.invalid}>
-                <FieldLabel htmlFor={field.name}>Password</FieldLabel>
+                <FieldLabel htmlFor={field.name}>
+                  {tCommon("password")}
+                </FieldLabel>
                 <Input
                   {...field}
                   id={field.name}
                   type="password"
                   aria-invalid={fieldState.invalid}
-                  placeholder="Enter your password"
+                  placeholder={tCommon("passwordPlaceholder")}
                   className="bg-background/60 focus-visible:ring-primary h-10"
                 />
                 {fieldState.invalid && (
@@ -103,7 +106,7 @@ export default function LoginPage() {
                 )}
                 <FieldDescription>
                   <Link href="/recover-password" className="hover:underline">
-                    forget you&#39;re password?
+                    {tLogin("forgotPassword")}
                   </Link>
                 </FieldDescription>
               </Field>
@@ -121,12 +124,12 @@ export default function LoginPage() {
         className="w-full"
         disabled={isSubmitting}
       >
-        Sign in
+        {tLogin("loginButton")}
       </Button>
       <p className="text-center">
-        Don&#39;t have an account?{" "}
+        {tCommon("dontHaveAccount")} {""}
         <Button asChild variant="link">
-          <Link href="/signup">Sign up</Link>
+          <Link href="/signup">{tLogin("signupLink")}</Link>
         </Button>
       </p>
     </AuthLayout>

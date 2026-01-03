@@ -3,10 +3,45 @@
     "login": "تسجيل الدخول",
     "signup": "إنشاء حساب"
   },
+  "Common": {
+    "username": "اسم المستخدم",
+    "email": "البريد الإلكتروني",
+    "password": "كلمة المرور",
+    "confirmPassword": "تأكيد كلمة المرور",
+    "usernamePlaceholder": "أدخل اسم المستخدم",
+    "passwordPlaceholder": "أدخل كلمة المرور",
+    "emailPlaceholder": "email@example.com",
+    "confirmPasswordPlaceholder": "أكد كلمة المرور",
+    "passwordHint": "اختر كلمة مرور قوية تحتوي على رموز وأرقام.",
+    "unexpectedError": "حدث خطأ غير متوقع",
+    "alreadyRegistered": "مسجل بالفعل؟",
+    "dontHaveAccount": "ليس لديك حساب؟"
+  },
   "Login": {
-    "loginButton": "تسجيل الدخول"
+    "loginButton": "تسجيل الدخول",
+    "forgotPassword": "هل نسيت كلمة المرور؟",
+    "signupLink": "إنشاء حساب"
   },
   "Signup": {
-    "signupButton": "إنشاء حساب"
+    "signupButton": "إنشاء حساب",
+    "signinLink": "تسجيل الدخول"
+  },
+  "Language": {
+    "changeLanguageSrOnly": "تغيير اللغة"
+  },
+  "Theme": {
+    "toggleThemeSrOnly": "تبديل النمط",
+    "light": "فاتح",
+    "dark": "داكن",
+    "system": "افتراضي النظام"
+  },
+  "Dashboard": {
+    "title": "لوحة التحكم",
+    "logout": "تسجيل الخروج"
+  },
+  "AuthErrors": {
+    "emailExists": "البريد الإلكتروني مستخدم بالفعل",
+    "usernameExists": "اسم المستخدم مستخدم بالفعل",
+    "invalidCredentials": "اسم المستخدم أو كلمة المرور غير صحيحة"
   }
 }

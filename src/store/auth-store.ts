@@ -28,9 +28,9 @@ export const useAuthStore = create<AuthStore>()(
         await randomDelay();
         const errors: ServerFieldErrors = {};
         get().users.forEach((user) => {
-          if (user.email === data.email) errors.email = "Email already exists";
+          if (user.email === data.email) errors.email = "emailExists";
           if (user.username.toLowerCase() === data.username.toLowerCase())
-            errors.username = "Username already exists";
+            errors.username = "usernameExists";
         });
 
         if (Object.keys(errors).length > 0)
@@ -48,12 +48,12 @@ export const useAuthStore = create<AuthStore>()(
         const user = get().users.find(
           (user) =>
             user.username.toLowerCase() === username.toLowerCase() &&
-            user.password === password,
+            user.password === password
         );
 
         if (!user)
           throw new ServerValidationError({
-            root: "Invalid username or password",
+            root: "invalidCredentials",
           });
         set({
           currentUser: user,
@@ -71,6 +71,6 @@ export const useAuthStore = create<AuthStore>()(
     }),
     {
       name: "auth-storage",
-    },
-  ),
+    }
+  )
 );

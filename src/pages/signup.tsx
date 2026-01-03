@@ -15,18 +15,23 @@ import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { LoginFields } from "@/schemas/login-schema";
 import { ServerValidationError } from "@/types/server-validation-error";
 import { useAuthStore } from "@/store/auth-store";
+import { useTranslations } from "next-intl";
+import { getMessages } from "@/lib/utils";
+import useAutoRtl from "@/hooks/use-auto-rtl";
 
 export default function SignupPage() {
+  useAutoRtl();
   const signup = useAuthStore((state) => state.signup);
+  const tCommon = useTranslations("Common");
+  const tSignup = useTranslations("Signup");
+  const tAuthErrors = useTranslations("AuthErrors");
 
   const {
     control,
     handleSubmit,
     setError,
     formState: { isSubmitting, errors },
-  } = useForm<SignupFields>({
-    resolver: zodResolver(signupSchema),
-  });
+  } = useForm<SignupFields>({ resolver: zodResolver(signupSchema) });
 
   const onSubmit: SubmitHandler<SignupFields> = async (data) => {
     try {
@@ -35,17 +40,18 @@ export default function SignupPage() {
       console.log(err);
       if (err instanceof ServerValidationError) {
         console.log(err.errors);
-        Object.entries(err.errors).forEach(([field, message]) => {
+        Object.entries(err.errors).forEach(([field, messageKey]) => {
+          const translatedMessage = tAuthErrors(String(messageKey));
           setError(field as keyof LoginFields, {
             type: "server",
-            message,
+            message: translatedMessage,
           });
         });
         return;
       }
 
       setError("root", {
-        message: "An unexpected error occurred",
+        message: tCommon("unexpectedError"),
       });
     }
   };
@@ -59,13 +65,15 @@ export default function SignupPage() {
             control={control}
             render={({ field, fieldState }) => (
               <Field data-invalid={fieldState.invalid}>
-                <FieldLabel htmlFor={field.name}>Username</FieldLabel>
+                <FieldLabel htmlFor={field.name}>
+                  {tCommon("username")}
+                </FieldLabel>
                 <Input
                   {...field}
                   autoComplete="off"
                   id={field.name}
                   aria-invalid={fieldState.invalid}
-                  placeholder="Enter your username"
+                  placeholder={tCommon("usernamePlaceholder")}
                   className="bg-background/60 focus-visible:ring-primary h-10"
                 />
                 {fieldState.invalid && (
@@ -79,13 +87,13 @@ export default function SignupPage() {
             control={control}
             render={({ field, fieldState }) => (
               <Field data-invalid={fieldState.invalid}>
-                <FieldLabel htmlFor={field.name}>Email</FieldLabel>
+                <FieldLabel htmlFor={field.name}>{tCommon("email")}</FieldLabel>
                 <Input
                   {...field}
                   id={field.name}
                   type="email"
                   aria-invalid={fieldState.invalid}
-                  placeholder="email@example.com"
+                  placeholder={tCommon("emailPlaceholder")}
                   className="bg-background/60 focus-visible:ring-primary h-10"
                 />
                 {fieldState.invalid && (
@@ -99,21 +107,21 @@ export default function SignupPage() {
             control={control}
             render={({ field, fieldState }) => (
               <Field data-invalid={fieldState.invalid}>
-                <FieldLabel htmlFor={field.name}>Password</FieldLabel>
+                <FieldLabel htmlFor={field.name}>
+                  {tCommon("password")}
+                </FieldLabel>
                 <Input
                   {...field}
                   id={field.name}
                   type="password"
                   aria-invalid={fieldState.invalid}
-                  placeholder="Enter a password"
+                  placeholder={tCommon("passwordPlaceholder")}
                   className="bg-background/60 focus-visible:ring-primary h-10"
                 />
                 {fieldState.invalid && (
                   <FieldError errors={[fieldState.error]} />
                 )}
-                <FieldDescription>
-                  Choose a strong password with symbols and numbers.
-                </FieldDescription>
+                <FieldDescription>{tCommon("passwordHint")}</FieldDescription>
               </Field>
             )}
           />
@@ -122,13 +130,15 @@ export default function SignupPage() {
             control={control}
             render={({ field, fieldState }) => (
               <Field data-invalid={fieldState.invalid}>
-                <FieldLabel htmlFor={field.name}>Confirm password</FieldLabel>
+                <FieldLabel htmlFor={field.name}>
+                  {tCommon("confirmPassword")}
+                </FieldLabel>
                 <Input
                   {...field}
                   id={field.name}
                   type="password"
                   aria-invalid={fieldState.invalid}
-                  placeholder="Confirm your password"
+                  placeholder={tCommon("confirmPasswordPlaceholder")}
                   className="bg-background/60 focus-visible:ring-primary h-10"
                 />
                 {fieldState.invalid && (
@@ -149,14 +159,18 @@ export default function SignupPage() {
         className="w-full"
         disabled={isSubmitting}
       >
-        Sign up
+        {tSignup("signupButton")}
       </Button>
       <p className="text-center">
-        Already registered?{" "}
+        {tCommon("alreadyRegistered")} {""}
         <Button asChild variant="link">
-          <Link href="/">Sign in</Link>
+          <Link href="/">{tSignup("signinLink")}</Link>
         </Button>
       </p>
     </AuthLayout>
   );
+}
+
+export async function getStaticProps({ locale }: { locale: string }) {
+  return { props: { messages: await getMessages(locale) } };
 }

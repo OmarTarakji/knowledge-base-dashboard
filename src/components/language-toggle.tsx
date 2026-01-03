@@ -8,8 +8,10 @@ import {
 import { Button } from "@/components/ui/button";
 import { Globe } from "lucide-react";
 import React from "react";
+import { useTranslations } from "next-intl";
 
 export default function LanguageToggle() {
+  const t = useTranslations("Language");
   const router = useRouter();
   const { locale, asPath } = router;
 
@@ -23,7 +25,7 @@ export default function LanguageToggle() {
       <DropdownMenuTrigger asChild>
         <Button variant="outline" size="icon">
           <Globe />
-          <span className="sr-only">Change Language</span>
+          <span className="sr-only">{t("changeLanguageSrOnly")}</span>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
@@ -37,7 +39,7 @@ export default function LanguageToggle() {
           checked={locale === "ar"}
           onCheckedChange={() => setLocale("ar")}
         >
-          عربي
+          العربية
         </DropdownMenuCheckboxItem>
       </DropdownMenuContent>
     </DropdownMenu>

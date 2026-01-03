@@ -3,10 +3,45 @@
     "login": "Login",
     "signup": "Sign up"
   },
+  "Common": {
+    "username": "Username",
+    "email": "Email",
+    "password": "Password",
+    "confirmPassword": "Confirm password",
+    "usernamePlaceholder": "Enter your username",
+    "passwordPlaceholder": "Enter your password",
+    "emailPlaceholder": "email@example.com",
+    "confirmPasswordPlaceholder": "Confirm your password",
+    "passwordHint": "Choose a strong password with symbols and numbers.",
+    "unexpectedError": "An unexpected error occurred",
+    "alreadyRegistered": "Already registered?",
+    "dontHaveAccount": "Don't have an account?"
+  },
   "Login": {
-    "loginButton": "Sign in"
+    "loginButton": "Sign in",
+    "forgotPassword": "forget you're password?",
+    "signupLink": "Sign up"
   },
   "Signup": {
-    "signupButton": "Sign up"
+    "signupButton": "Sign up",
+    "signinLink": "Sign in"
+  },
+  "Language": {
+    "changeLanguageSrOnly": "Change Language"
+  },
+  "Theme": {
+    "toggleThemeSrOnly": "Toggle theme",
+    "light": "Light",
+    "dark": "Dark",
+    "system": "System"
+  },
+  "Dashboard": {
+    "title": "Dashboard",
+    "logout": "Logout"
+  },
+  "AuthErrors": {
+    "emailExists": "Email already exists",
+    "usernameExists": "Username already exists",
+    "invalidCredentials": "Invalid username or password"
   }
 }
