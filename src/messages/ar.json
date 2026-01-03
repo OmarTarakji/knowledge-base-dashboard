@@ -1,0 +1,12 @@
+{
+  "AuthLayout": {
+    "login": "تسجيل الدخول",
+    "signup": "إنشاء حساب"
+  },
+  "Login": {
+    "loginButton": "تسجيل الدخول"
+  },
+  "Signup": {
+    "signupButton": "إنشاء حساب"
+  }
+}

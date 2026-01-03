@@ -1,3 +1,5 @@
+import AuthLayout from "@/components/layout/auth-layout";
+import { Button } from "@/components/ui/button";
 import {
   Field,
   FieldDescription,
@@ -5,47 +7,34 @@ import {
   FieldGroup,
   FieldLabel,
 } from "@/components/ui/field";
+import { SignupFields, signupSchema } from "@/schemas/signup-schema";
 import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
+import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { LoginFields, loginSchema } from "@/schemas/login-schema";
-import AuthLayout from "@/components/layout/auth-layout";
-import { useAuthStore } from "@/store/auth-store";
+import { LoginFields } from "@/schemas/login-schema";
 import { ServerValidationError } from "@/types/server-validation-error";
-import { getMessages } from "@/lib/utils";
-import { useEffect } from "react";
-import { useRouter } from "next/router";
+import { useAuthStore } from "@/store/auth-store";
 
-export default function LoginPage() {
-  const { locale } = useRouter();
-  useEffect(() => {
-    const isRTL = locale === "ar";
-    document.documentElement.dir = isRTL ? "rtl" : "ltr";
-    document.documentElement.lang = locale || "en";
-  }, [locale]);
+export default function SignupPage() {
+  const signup = useAuthStore((state) => state.signup);
 
-  const login = useAuthStore((state) => state.login);
   const {
     control,
     handleSubmit,
-    formState: { isSubmitting, errors },
     setError,
-  } = useForm<LoginFields>({
-    resolver: zodResolver(loginSchema),
+    formState: { isSubmitting, errors },
+  } = useForm<SignupFields>({
+    resolver: zodResolver(signupSchema),
   });
 
-  const onSubmit: SubmitHandler<LoginFields> = async ({
-    username,
-    password,
-  }) => {
+  const onSubmit: SubmitHandler<SignupFields> = async (data) => {
     try {
-      await login(username, password);
+      await signup(data);
     } catch (err) {
       console.log(err);
-
       if (err instanceof ServerValidationError) {
+        console.log(err.errors);
         Object.entries(err.errors).forEach(([field, message]) => {
           setError(field as keyof LoginFields, {
             type: "server",
@@ -62,8 +51,8 @@ export default function LoginPage() {
   };
 
   return (
-    <AuthLayout type="login">
-      <form id="login-form" onSubmit={handleSubmit(onSubmit)}>
+    <AuthLayout type="signup">
+      <form id="signup-form" onSubmit={handleSubmit(onSubmit)}>
         <FieldGroup>
           <Controller
             name="username"
@@ -73,9 +62,30 @@ export default function LoginPage() {
                 <FieldLabel htmlFor={field.name}>Username</FieldLabel>
                 <Input
                   {...field}
+                  autoComplete="off"
                   id={field.name}
                   aria-invalid={fieldState.invalid}
                   placeholder="Enter your username"
+                  className="bg-background/60 focus-visible:ring-primary h-10"
+                />
+                {fieldState.invalid && (
+                  <FieldError errors={[fieldState.error]} />
+                )}
+              </Field>
+            )}
+          />
+          <Controller
+            name="email"
+            control={control}
+            render={({ field, fieldState }) => (
+              <Field data-invalid={fieldState.invalid}>
+                <FieldLabel htmlFor={field.name}>Email</FieldLabel>
+                <Input
+                  {...field}
+                  id={field.name}
+                  type="email"
+                  aria-invalid={fieldState.invalid}
+                  placeholder="email@example.com"
                   className="bg-background/60 focus-visible:ring-primary h-10"
                 />
                 {fieldState.invalid && (
@@ -95,17 +105,35 @@ export default function LoginPage() {
                   id={field.name}
                   type="password"
                   aria-invalid={fieldState.invalid}
-                  placeholder="Enter your password"
+                  placeholder="Enter a password"
                   className="bg-background/60 focus-visible:ring-primary h-10"
                 />
                 {fieldState.invalid && (
                   <FieldError errors={[fieldState.error]} />
                 )}
                 <FieldDescription>
-                  <Link href="/recover-password" className="hover:underline">
-                    forget you&#39;re password?
-                  </Link>
+                  Choose a strong password with symbols and numbers.
                 </FieldDescription>
+              </Field>
+            )}
+          />
+          <Controller
+            name="confirmPassword"
+            control={control}
+            render={({ field, fieldState }) => (
+              <Field data-invalid={fieldState.invalid}>
+                <FieldLabel htmlFor={field.name}>Confirm password</FieldLabel>
+                <Input
+                  {...field}
+                  id={field.name}
+                  type="password"
+                  aria-invalid={fieldState.invalid}
+                  placeholder="Confirm your password"
+                  className="bg-background/60 focus-visible:ring-primary h-10"
+                />
+                {fieldState.invalid && (
+                  <FieldError errors={[fieldState.error]} />
+                )}
               </Field>
             )}
           />
@@ -116,23 +144,19 @@ export default function LoginPage() {
       )}
       <Button
         type="submit"
-        form="login-form"
+        form="signup-form"
         size="lg"
         className="w-full"
         disabled={isSubmitting}
       >
-        Sign in
+        Sign up
       </Button>
       <p className="text-center">
-        Don&#39;t have an account?{" "}
+        Already registered?{" "}
         <Button asChild variant="link">
-          <Link href="/signup">Sign up</Link>
+          <Link href="/">Sign in</Link>
         </Button>
       </p>
     </AuthLayout>
   );
-}
-
-export async function getStaticProps({ locale }: { locale: string }) {
-  return { props: { messages: await getMessages(locale) } };
 }
